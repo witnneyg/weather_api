@@ -37,15 +37,21 @@ export class StormGlass {
 
   constructor(protected request: AxiosStatic) {}
   public async fetchPoints(lat: number, lng: number): Promise<ForecastPoint[]> {
-    const response = await this.request.get<StormGlassForescastResponse>(
-      `https://api.stormglass.io/v2/weather/point?lat=${lat}&lng=${lng}&params=${this.stormGlassAPIParams}`,
-      {
-        headers: {
-          Authorization: process.env.API_KEY,
-        },
-      }
-    );
-    return this.normalizedReponse(response.data);
+    try {
+      const response = await this.request.get<StormGlassForescastResponse>(
+        `https://api.stormglass.io/v2/weather/point?lat=${lat}&lng=${lng}&params=${this.stormGlassAPIParams}`,
+        {
+          headers: {
+            Authorization: process.env.API_KEY,
+          },
+        }
+      );
+      return this.normalizedReponse(response.data);
+    } catch (error) {
+      throw new Error(
+        `Unexpected error when trying to communicate to StormGlass: ${error.message}`
+      );
+    }
   }
 
   private normalizedReponse(
