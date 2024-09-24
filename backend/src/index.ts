@@ -2,6 +2,7 @@ import express from "express";
 import { Request, Response } from "express";
 import { ForecastController } from "./controllers/forecast-controller";
 import { config } from "dotenv";
+import { databaseConnection } from "./lib/database";
 
 function main() {
   const app = express();
@@ -10,10 +11,12 @@ function main() {
 
   app.use(express.json());
 
-  app.get("", (req: Request, res: Response): void => {
+  app.get("/", async (req: Request, res: Response): Promise<void> => {
     const forecastController = new ForecastController();
 
     forecastController.getForecastForLoggedUser(req, res);
+
+    databaseConnection();
   });
 
   app.listen(8888, () => {
