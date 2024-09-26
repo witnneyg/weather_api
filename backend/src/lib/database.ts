@@ -10,3 +10,5 @@ export async function databaseConnection() {
     }
   }
 }
+
+export const close = (): Promise<void> => mongoose.connection.close();

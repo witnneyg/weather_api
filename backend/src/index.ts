@@ -4,7 +4,7 @@ import { ForecastController } from "./controllers/forecast-controller";
 import { config } from "dotenv";
 import { databaseConnection } from "./lib/database";
 
-function main() {
+async function main() {
   const app = express();
 
   config();
@@ -15,10 +15,9 @@ function main() {
     const forecastController = new ForecastController();
 
     forecastController.getForecastForLoggedUser(req, res);
-
-    databaseConnection();
   });
 
+  await databaseConnection();
   app.listen(8888, () => {
     console.log("rodando na porta 8888");
   });
