@@ -12,7 +12,7 @@ async function main() {
 
   app.use(express.json());
 
-  app.get("/", async (req: Request, res: Response): Promise<void> => {
+  app.get("/forecast", async (req: Request, res: Response): Promise<void> => {
     const forecastController = new ForecastController();
 
     forecastController.getForecastForLoggedUser(req, res);
