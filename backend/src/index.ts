@@ -18,7 +18,7 @@ async function main() {
     forecastController.getForecastForLoggedUser(req, res);
   });
 
-  app.post("/", (req: Request, res: Response) => {
+  app.post("/beaches", (req: Request, res: Response) => {
     const beachesController = new BeachesController();
 
     beachesController.create(req, res);
