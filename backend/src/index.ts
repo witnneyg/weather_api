@@ -3,6 +3,7 @@ import { Request, Response } from "express";
 import { ForecastController } from "./controllers/forecast-controller";
 import { config } from "dotenv";
 import { databaseConnection } from "./lib/database";
+import { BeachesController } from "./controllers/beaches-controller";
 
 async function main() {
   const app = express();
@@ -15,6 +16,12 @@ async function main() {
     const forecastController = new ForecastController();
 
     forecastController.getForecastForLoggedUser(req, res);
+  });
+
+  app.post("/", (req: Request, res: Response) => {
+    const beachesController = new BeachesController();
+
+    beachesController.create(req, res);
   });
 
   await databaseConnection();
