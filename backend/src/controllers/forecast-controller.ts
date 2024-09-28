@@ -11,7 +11,6 @@ export class ForecastController {
   ): Promise<void> {
     try {
       const beaches = await Beach.find({});
-      console.log(beaches);
       const forecastData = await forecast.processForecastForBeaches(beaches);
       res.status(200).send(forecastData);
       // eslint-disable-next-line @typescript-eslint/no-unused-vars

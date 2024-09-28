@@ -4,6 +4,7 @@ import { ForecastController } from "./controllers/forecast-controller";
 import { config } from "dotenv";
 import { databaseConnection } from "./lib/database";
 import { BeachesController } from "./controllers/beaches-controller";
+import { Users } from "./controllers/users-controller";
 
 async function main() {
   const app = express();
@@ -22,6 +23,12 @@ async function main() {
     const beachesController = new BeachesController();
 
     beachesController.create(req, res);
+  });
+
+  app.post("/users", async (req: Request, res: Response) => {
+    const users = new Users();
+
+    users.create(req, res);
   });
 
   await databaseConnection();
