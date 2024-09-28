@@ -26,9 +26,15 @@ async function main() {
   });
 
   app.post("/users", async (req: Request, res: Response) => {
-    const users = new UsersController();
+    const userController = new UsersController();
 
-    users.create(req, res);
+    userController.create(req, res);
+  });
+
+  app.post("/users/authenticate", async (req: Request, res: Response) => {
+    const userController = new UsersController();
+
+    userController.authenticate(req, res);
   });
 
   await databaseConnection();
