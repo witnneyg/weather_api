@@ -1,16 +1,16 @@
 import { Request, Response } from "express";
 import { User } from "../models/user";
+import { BaseController } from ".";
 
-export class Users {
-  public create(req: Request, res: Response) {
+export class UsersController extends BaseController {
+  public async create(req: Request, res: Response) {
     try {
       const user = new User(req.body);
-
-      const newUser = user.save();
+      const newUser = await user.save();
 
       res.status(201).send(newUser);
     } catch (error) {
-      res.status(400).send(error);
+      this.sendCreatedUpdateErrorResponse(res, error);
     }
   }
 }
