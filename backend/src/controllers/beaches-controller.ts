@@ -5,7 +5,7 @@ import mongoose from "mongoose";
 export class BeachesController {
   public async create(req: Request, res: Response) {
     try {
-      const beaches = new Beach(req.body);
+      const beaches = new Beach({ ...req.body, ...{ user: req.decoded.id } });
       const result = await beaches.save();
       res.status(201).send(result);
     } catch (error) {

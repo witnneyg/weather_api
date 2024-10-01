@@ -10,12 +10,11 @@ export class ForecastController {
     res: Response
   ): Promise<void> {
     try {
-      const beaches = await Beach.find({});
+      const beaches = await Beach.find({ user: req.decoded.id });
       const forecastData = await forecast.processForecastForBeaches(beaches);
       res.status(200).send(forecastData);
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
-      console.error(error);
       res.status(500).send({ error: "Something went wrong" });
     }
   }
