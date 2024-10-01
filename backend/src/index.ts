@@ -6,10 +6,9 @@ import { databaseConnection } from "./lib/database";
 import { BeachesController } from "./controllers/beaches-controller";
 import { UsersController } from "./controllers/users-controller";
 import { authMiddleware } from "./middlwares/auth";
+const app = express();
 
 async function main() {
-  const app = express();
-
   config();
 
   app.use(express.json());
@@ -49,3 +48,5 @@ async function main() {
 }
 
 main();
+
+export default app;

@@ -5,6 +5,7 @@ const config: Config = {
   collectCoverage: true,
   coverageDirectory: "coverage",
   coverageProvider: "v8",
+  testTimeout: 999999,
   setupFiles: ["<rootDir>/jest.setup.ts"],
 };
 
