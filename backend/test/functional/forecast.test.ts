@@ -18,7 +18,7 @@ describe("Beach forecast functional tests", () => {
 
   beforeAll(async () => {
     await mongoose.connect(process.env.MONGODB_URI as string, {
-      serverSelectionTimeoutMS: 30000, // Aumentar o timeout para selecionar o servidor
+      serverSelectionTimeoutMS: 30000,
     });
   });
 

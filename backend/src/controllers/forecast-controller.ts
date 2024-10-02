@@ -1,10 +1,11 @@
 import { Request, Response } from "express";
 import { Forecast } from "../services/forecast";
 import { Beach } from "../models/beach";
+import { BaseController } from ".";
 
 const forecast = new Forecast();
 
-export class ForecastController {
+export class ForecastController extends BaseController {
   public async getForecastForLoggedUser(
     req: Request,
     res: Response
@@ -15,7 +16,10 @@ export class ForecastController {
       res.status(200).send(forecastData);
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
-      res.status(500).send({ error: "Something went wrong" });
+      this.sendErrorResponse(res, {
+        code: 500,
+        message: "Something went wrong",
+      });
     }
   }
 }

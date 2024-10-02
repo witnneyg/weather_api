@@ -3,7 +3,7 @@ import AuthService from "../../src/services/auth";
 import request from "supertest";
 import mongoose from "mongoose";
 import { Beach } from "../../src/models/beach";
-import app from "../../src/index"; // Aponte para o arquivo correto
+import app from "../../src/index";
 
 describe("Beaches functional tests", () => {
   const defaultUser = {
@@ -14,7 +14,7 @@ describe("Beaches functional tests", () => {
 
   beforeAll(async () => {
     await mongoose.connect(process.env.MONGODB_URI as string, {
-      serverSelectionTimeoutMS: 30000, // Aumentar o timeout para selecionar o servidor
+      serverSelectionTimeoutMS: 30000,
     });
   });
 
@@ -40,7 +40,6 @@ describe("Beaches functional tests", () => {
         .set({ "x-access-token": token })
         .send(newBeach);
       expect(response.status).toBe(201);
-      //Object containing matches the keys and values, even if includes other keys such as id.
       expect(response.body).toEqual(expect.objectContaining(newBeach));
     });
 
@@ -58,7 +57,9 @@ describe("Beaches functional tests", () => {
 
       expect(response.status).toBe(422);
       expect(response.body).toEqual({
-        error:
+        code: 422,
+        error: "Unprocessable Entity",
+        message:
           'Beach validation failed: lat: Cast to Number failed for value "invalid_string" (type string) at path "lat"',
       });
     });
