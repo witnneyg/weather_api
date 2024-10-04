@@ -37,4 +37,17 @@ export class UsersController extends BaseController {
 
     return res.status(200).send({ ...user.toJSON(), ...{ token } });
   }
+
+  public async me(req: Request, res: Response): Promise<Response> {
+    const email = req.decoded.email;
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return this.sendErrorResponse(res, {
+        code: 404,
+        message: "User not found!",
+      });
+    }
+    return res.send({ user });
+  }
 }
