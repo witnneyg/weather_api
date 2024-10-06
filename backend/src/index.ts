@@ -13,6 +13,7 @@ import { UsersController } from "./controllers/users-controller";
 import { authMiddleware } from "./middlwares/auth";
 import { apiErrorValidator } from "./middlwares/api-error-validator";
 import apiSchema from "./api.schema.json";
+import { rateLimiterMiddlware } from "./util/rate-limit";
 
 const app = express();
 
@@ -35,6 +36,7 @@ async function main() {
   app.get(
     "/forecast",
     authMiddleware,
+    rateLimiterMiddlware,
     async (req: Request, res: Response): Promise<void> => {
       const forecastController = new ForecastController();
 
@@ -60,8 +62,8 @@ async function main() {
     userController.authenticate(req, res);
   });
 
-  app.use(apiErrorValidator);
   await databaseConnection();
+  app.use(apiErrorValidator);
 
   app.listen(8888, () => {
     console.log("rodando na porta 8888");

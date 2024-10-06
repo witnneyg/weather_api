@@ -8,7 +8,7 @@ export interface APIError {
   documentation?: string;
 }
 
-export interface APIErrorResponse extends Omit<APIError, "codAsString"> {
+export interface APIErrorResponse extends Omit<APIError, "codeAsString"> {
   error: string;
 }
 

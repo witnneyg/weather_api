@@ -53,21 +53,6 @@ export class Forecast {
     return pointsWithCorrectSources;
   }
 
-  private enrichedBeachData(
-    points: ForecastPoint[],
-    beach: Beach,
-    rating: Rating
-  ): BeachForecast[] {
-    return points.map((point) => ({
-      lat: beach.lat,
-      lng: beach.lng,
-      name: beach.name,
-      position: beach.position,
-      rating: rating.getRateForPoint(point),
-      ...point,
-    }));
-  }
-
   private mapForecastByTime(forecast: BeachForecast[]): TimeForecast[] {
     const forecastByTime: TimeForecast[] = [];
 
@@ -86,5 +71,20 @@ export class Forecast {
     }
 
     return forecastByTime;
+  }
+
+  private enrichedBeachData(
+    points: ForecastPoint[],
+    beach: Beach,
+    rating: Rating
+  ): BeachForecast[] {
+    return points.map((point) => ({
+      lat: beach.lat,
+      lng: beach.lng,
+      name: beach.name,
+      position: beach.position,
+      rating: rating.getRateForPoint(point),
+      ...point,
+    }));
   }
 }
