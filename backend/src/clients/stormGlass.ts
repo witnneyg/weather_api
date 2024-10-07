@@ -1,5 +1,6 @@
 import { InternalError } from "../util/errors/internal-error";
 import * as HTTPUtil from "../util/request";
+// import { TimeUtil } from "../util/time";
 export interface StormGlassPointSource {
   [key: string]: number;
 }
@@ -50,12 +51,15 @@ export class StormGlass {
   readonly stormGlassAPIParams =
     "swellDirection,swellHeight,swellPeriod,waveDirection,waveHeight,windDirection,windSpeed";
   readonly stormGlassAPISource = "noaa";
-
   constructor(protected request = new HTTPUtil.Request()) {}
   public async fetchPoints(lat: number, lng: number): Promise<ForecastPoint[]> {
+    // const endTimestamp = TimeUtil.getUnixTimeForFutureDay(1);
+    // `https://api.stormglass.io/v2/weather/point?lat=${lat}&lng=${lng}
+    // &params=${this.stormGlassAPIParams}&end=${endTimestamp}`,
     try {
       const response = await this.request.get<StormGlassForescastResponse>(
-        `https://api.stormglass.io/v2/weather/point?lat=${lat}&lng=${lng}&params=${this.stormGlassAPIParams}`,
+        `https://api.stormglass.io/v2/weather/point?lat=${lat}&lng=${lng}
+        &params=${this.stormGlassAPIParams}`,
         {
           headers: {
             Authorization: process.env.API_KEY,

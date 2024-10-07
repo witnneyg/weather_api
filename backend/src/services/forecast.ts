@@ -3,7 +3,7 @@ import { Beach } from "../models/beach";
 import { InternalError } from "../util/errors/internal-error";
 import { Rating } from "./rating";
 
-export interface BeachForecast extends Omit<Beach, "user">, ForecastPoint {
+export interface BeachForecast extends Omit<Beach, "userId">, ForecastPoint {
   rating: number;
 }
 
